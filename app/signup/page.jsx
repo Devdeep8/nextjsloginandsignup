@@ -1,85 +1,79 @@
 "use client";
 import { useState } from "react";
-import { useRouter  } from "next/navigation";
-
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
   const router = useRouter();
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [invalid, setInvlaid] = useState('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [invalid, setInvlaid] = useState("");
 
-const handleSubmit = async (e) =>{
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if(!name || !email || !password ){
-        setInvlaid("Enter the value"); 
-        return;
+    if (!name || !email || !password) {
+      setInvlaid("Enter the value");
+      return;
     }
     try {
-        const resUserExits = await fetch('/api/userExits',{
-            method: 'Post',
-            headers:{
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                 email,
-            })
-        })
+      const resUserExits = await fetch("/api/userExits", {
+        method: "Post",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      });
 
-        const {user} = await resUserExits.json()
-        if (user){
-            setInvlaid('user already their.')
-            return
-        }
+      const { user } = await resUserExits.json();
+      if (user) {
+        setInvlaid("user already their.");
+        return;
+      }
 
-
-        const res = await fetch('/api/signup',{
-            method: 'POST',
-            headers:{
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                name, email ,password,
-            })
-        })
-        
-        
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
     } catch (error) {
-        console.log('error during data', error )
-        
+      console.log("error during data", error);
     }
-
-}
-
+  };
 
   return (
     <div className="flex justify-center mt-8">
       <div style={{ minWidth: "30%" }}>
-        <div
-          className="flex min-h-full shadow-lg flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white"
-        >
+        <div className="flex min-h-full shadow-lg flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <div className="flex justify-center">
-             
-            </div>
-            <h2
-              className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
-            >
+            <div className="flex justify-center"></div>
+            <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Create a new account
             </h2>
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST" onClick={handleSubmit}>
+            <form
+              className="space-y-6"
+              action="#"
+              method="POST"
+              onClick={handleSubmit}
+            >
               <div>
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="Name"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                   Name
+                    Name
                   </label>
                 </div>
                 <div className="mt-2">
@@ -87,7 +81,7 @@ const handleSubmit = async (e) =>{
                     id="Name"
                     name="Name"
                     type="text"
-                    onChange={e => setName(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -105,7 +99,7 @@ const handleSubmit = async (e) =>{
                     id="email"
                     name="email"
                     type="email"
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     autoComplete="email"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -129,13 +123,17 @@ const handleSubmit = async (e) =>{
                     type="password"
                     autoComplete="current-password"
                     required
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
-              {invalid && (<div className=" bg-red-700 p-1 flex justify-center text-xl">{invalid}</div> )}
+              {invalid && (
+                <div className=" bg-red-700 p-1 flex justify-center text-xl">
+                  {invalid}
+                </div>
+              )}
 
               <div>
                 <button
