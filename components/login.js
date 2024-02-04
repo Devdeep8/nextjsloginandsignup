@@ -24,7 +24,7 @@ export default function Login() {
       }),
     });
     let response = await res.json();
-    console.log(response);
+    // console.log(response);
 
     if (response.sucess) {
       router.push("/deshboard");
