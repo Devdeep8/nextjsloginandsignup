@@ -14,5 +14,15 @@ module.exports = {
       },
     },
   },
+  darkMode: 'class', // Enable dark mode with 'class' mode
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {
+      backgroundColor: ['dark', 'dark-hover', 'dark-group-hover', 'dark-even', 'dark-odd'],
+      textColor: ['dark', 'dark-hover', 'dark-active'],
+    },
+  },
   plugins: [],
 };

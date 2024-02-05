@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie": "^0.6.0",
+    "cookies": "^0.9.1",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.1",
     "next": "14.1.0",
     "next-auth": "^4.24.5",
