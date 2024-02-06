@@ -7,6 +7,7 @@ export default function Dashboard() {
   const router = useRouter();
   const [users, setUsers] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
+ 
 
   useEffect(() => {
     checkAuth();
@@ -28,6 +29,7 @@ export default function Dashboard() {
     if (response) {
       setUsers(response.users);
     } else {
+      console.error(`Unable to fetch data`);
       console.error(`Unable to fetch data`);
     }
   };

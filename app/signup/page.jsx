@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState , useEffect } from "react";
+
 import { useRouter } from "next/navigation";
 
 export default function Signup() {
@@ -43,6 +44,7 @@ export default function Signup() {
           email,
           password,
         }),
+
       });
       // console.log(res)
       if (res.ok) {
@@ -53,10 +55,25 @@ export default function Signup() {
       } else {
         setInvlaid(`error in signup`);
       }
+      console.log(res)
+      if(res.ok){
+        setInvlaid("signup done")
+        setTimeout(() => {
+          router.push('/')
+        }, 1000);
+      }else{
+        setInvlaid(`error in signup`)
+      }
+
     } catch (error) {
       console.log("error during data", error);
     }
   };
+  
+  
+
+
+
 
   return (
     <div className="flex justify-center mt-8">
