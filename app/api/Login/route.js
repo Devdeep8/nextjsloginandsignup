@@ -2,10 +2,7 @@
 import User from "@/models/users";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-
-import { setTokenCookie } from "@/utils/cookies";
-var jwt = require('jsonwebtoken');
-
+var jwt = require("jsonwebtoken");
 
 export async function POST(req) {
   try {
@@ -28,11 +25,14 @@ export async function POST(req) {
     // console.log('Password match:', passwordMatch);
 
     if (passwordMatch) {
-      var token = jwt.sign({ email: user.email , name: user.name }, 'rambilas');
-      return NextResponse.json(
-        { sucess: true, message: "User login successful" , token },
-        { status: 200 }
+      var token = jwt.sign(
+        { email: user.email, name: user.name },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: 30,
+        }
       );
+      return NextResponse.json({ sucess: true, token }, { status: 200 });
     } else {
       return NextResponse.json(
         { sucess: false, message: "Invalid credentials" },

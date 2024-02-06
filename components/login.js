@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { setTokenCookie } from "@/utils/cookies";
 
 export default function Login() {
   const router = useRouter();
@@ -27,6 +28,7 @@ export default function Login() {
     // console.log(response);
 
     if (response.sucess) {
+      setTokenCookie(response.token);
       router.push("/deshboard");
     } else {
       // Redirect to the dashboard or any other page upon successful login

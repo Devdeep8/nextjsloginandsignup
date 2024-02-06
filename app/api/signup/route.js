@@ -3,10 +3,6 @@ import User from "@/models/users";
 import { connectMongoDb } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { generateToken } from "@/utils/jsonwebtoken"; 
-import Cookies from 'cookies';
-
-
 
 export async function POST(req) {
   try {
@@ -27,9 +23,8 @@ export async function POST(req) {
     await connectMongoDb();
     await User.create({ name, email, password: hashedPassword });
 
-
     return NextResponse.json(
-      { sucess: true, message: "User signed up successfully" , token },
+      { sucess: true, message: "User signed up successfully", token },
       { status: 201 }
     );
   } catch (error) {
