@@ -29,9 +29,11 @@ export default function Signup() {
         });
         if (results.ok) {
             const data = await results.json();
+            toast.success('image upload')
             console.log(data);
         } else {
             console.error('Failed to upload image:', results.statusText);
+            toast.error('error in uploading')
         }
       const resUserExits = await fetch("/api/userExits", {
         method: "Post",
