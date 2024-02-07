@@ -3,9 +3,16 @@ import User from "@/models/users";
 import { connectMongoDb } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+// import formidable from "formidable";
+// import fs from 'fs'
+
+
+
 
 export async function POST(req) {
   try {
+
+    
     const { name, email, password } = await req.json();
 
     // Ensure that password is not empty
@@ -21,10 +28,10 @@ export async function POST(req) {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     await connectMongoDb();
-    await User.create({ name, email, password: hashedPassword });
+    await User.create({ name, email ,password: hashedPassword });
 
     return NextResponse.json(
-      { sucess: true, message: "User signed up successfully", token },
+      { sucess: true, message: "User signed up successfully"},
       { status: 201 }
     );
   } catch (error) {

@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getTokenCookie, removeTokenCookie } from "@/utils/cookies";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -17,6 +19,7 @@ export default function Dashboard() {
   const checkAuth = () => {
     const token = getTokenCookie(); // Assuming you store the token in localStorage
     if (!token) {
+
       // If token is not present, redirect to login page
       router.push("/");
     }
@@ -36,7 +39,11 @@ export default function Dashboard() {
 
   const handleLogout = () => {
     removeTokenCookie();
-    router.push("/");
+    toast.success('logout sucessfull')
+    setTimeout(() => {
+      
+      router.push("/");
+    }, 2000);
   };
 
   const toggleDarkMode = () => {
@@ -49,6 +56,7 @@ export default function Dashboard() {
         darkMode ? "white" : "black"
       } transition-all duration-500  w-screen h-screen  overflow-hidden `}
     >
+      <ToastContainer />
       <div
         className={`flex justify-end p-4 ${
           darkMode ? "bg-gray-800" : "bg-white"

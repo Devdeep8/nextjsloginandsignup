@@ -3,12 +3,14 @@ import User from "@/models/users";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 var jwt = require("jsonwebtoken");
+import { connectMongoDb } from "@/lib/mongodb";
 
 export async function POST(req) {
   try {
     const { email, password } = await req.json();
-
+    
     // Find the user by email
+    await connectMongoDb();
     const user = await User.findOne({ email });
 
     if (!user) {
