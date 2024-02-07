@@ -18,10 +18,21 @@ export default function Signup() {
     setImage(file);
   };
 
+  // console.log(image)
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
+      
+          const results = await fetch('/api/imag', {
+            method: 'POST',
+            body: image,
+        });
+        if (results.ok) {
+            const data = await results.json();
+            console.log(data);
+        } else {
+            console.error('Failed to upload image:', results.statusText);
+        }
       const resUserExits = await fetch("/api/userExits", {
         method: "Post",
         headers: {
@@ -47,7 +58,6 @@ export default function Signup() {
           name,
           email,
           password,
-          image,
         }),
       });
       // console.log(res)
@@ -92,12 +102,14 @@ export default function Signup() {
             className="space-y-6"
             action="#"
             method="POST"
+            onSubmit={handleSubmit}
             
           >
             {/* Form fields */}
             <input
               type="file"
               accept="image/*"
+             
               onChange={handleImageChange}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
@@ -176,7 +188,7 @@ export default function Signup() {
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
-                  onClick={handleSubmit}
+                  
                 >
                   Sign in
                 </button>
