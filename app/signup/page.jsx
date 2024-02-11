@@ -16,18 +16,24 @@ export default function Signup() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
-  };
+    
+    };
 
-  // console.log(image)
+  console.log(image)
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       
           const results = await fetch('/api/imag', {
             method: 'POST',
-            body: image,
-        });
-        if (results.ok) {
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+              image,
+            }),
+          });
+        if (results.success) {
             const data = await results.json();
             toast.success('image upload')
             console.log(data);
